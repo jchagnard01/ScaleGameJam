@@ -8,6 +8,7 @@ using System.Security;
 
 public class InputManager : MonoBehaviour
 {
+    PlayerManager playerManager;
     PlayerInput playerInput;
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerManager =  GetComponent<PlayerManager>();
     }
 
 
@@ -46,6 +48,7 @@ public class InputManager : MonoBehaviour
 
     public void HandleAllInputs()
     {
+        if(playerManager.isInteracting){return;}
         HandleMovementInput();
         HandleSprintInput();
         //HandleJumpInput
