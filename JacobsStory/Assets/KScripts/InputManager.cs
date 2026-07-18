@@ -4,20 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Reflection;
+using System.Security;
 
 public class InputManager : MonoBehaviour
 {
     PlayerInput playerInput;
+    PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
     public Vector2 movementInput;
-    private float moveAmount;
+    public float moveAmount;
 
     public float verticalInput;
     public float horizontalInput;
 
+    public bool sprint_input;
+
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
 
@@ -27,7 +32,11 @@ public class InputManager : MonoBehaviour
         {
             playerInput = new PlayerInput();
             playerInput.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+        
+            playerInput.PlayerActions.Sprint.performed += i => sprint_input = true;
+            playerInput.PlayerActions.Sprint.canceled += i => sprint_input = false;
         }
+
         playerInput.Enable();
     }
     private void OnDisable()
@@ -38,6 +47,7 @@ public class InputManager : MonoBehaviour
     public void HandleAllInputs()
     {
         HandleMovementInput();
+        HandleSprintInput();
         //HandleJumpInput
         //HandleAttackInput
     }
@@ -50,4 +60,17 @@ public class InputManager : MonoBehaviour
         
         
     }
+
+    private void HandleSprintInput()
+    {
+        if(sprint_input && moveAmount > 0.5f)
+        {
+            playerLocomotion.isSprinting = true;
+        }
+        else
+        {
+            playerLocomotion.isSprinting = false;
+        }
+    }
+    
 }
