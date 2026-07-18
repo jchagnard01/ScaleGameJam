@@ -27,6 +27,12 @@ public class InputManager : MonoBehaviour
         playerInput.Disable();
     }
 
+    public void HandleAllInputs()
+    {
+        HandleMovementInput();
+        //HandleJumpInput
+        //HandleAttackInput
+    }
     private void HandleMovementInput()
     {
         verticalInput = movementInput.y;
