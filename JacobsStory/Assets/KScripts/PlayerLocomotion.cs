@@ -15,13 +15,21 @@ public class PlayerLocomotion : MonoBehaviour
     public float leapingVelocity;
     public float fallingVelocity;
     public float rayCastHeightOffset = 0.5f;
-    public LayerMask groundLayer;    
+    public LayerMask groundLayer; 
+
     public bool isSprinting;
     public bool isGrounded;
+    public bool isJumping;
+
     public float walkSpeed = 1;
     public float movementSpeed = 2;
     public float sprintSpeed = 5;
     public float rotationSpeed = 7;
+
+    public float jumpHeight = 4;
+    public float gravityIntensity = -1;
+
+
     public void Awake()
     {
         inputManager = GetComponent<InputManager>();
@@ -33,14 +41,15 @@ public class PlayerLocomotion : MonoBehaviour
     }
     public void HandleAllMovement()
     {
+        //if (playerManager.isInteracting){return;}
         HandleFallingAndLanding();
-
-        if (playerManager.isInteracting){return;}
         HandleMovement();
         HandleRotation();
+       // HandleJumping();
     }
     private void HandleMovement()
     {
+        
         moveDirection = cameraObject.forward * inputManager.verticalInput;
         moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
         moveDirection.Normalize();
@@ -63,13 +72,16 @@ public class PlayerLocomotion : MonoBehaviour
         }
         
 
-        moveDirection = moveDirection * movementSpeed;
+        //moveDirection = moveDirection * movementSpeed;
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.linearVelocity = movementVelocity;
     }
 
     private void HandleRotation()
     {
+        if (isJumping)
+            return;
+
         Vector3 targetDirection = Vector3.zero;
 
         targetDirection = cameraObject.forward * inputManager.verticalInput;
@@ -94,7 +106,7 @@ public class PlayerLocomotion : MonoBehaviour
         Vector3 rayCastOrigin = transform.position;
         rayCastOrigin.y = rayCastOrigin.y + rayCastHeightOffset;
 
-        if(!isGrounded)
+        if(!isGrounded && !isJumping)
         {
             if(!playerManager.isInteracting)
             {
@@ -120,5 +132,19 @@ public class PlayerLocomotion : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+    public void HandleJumping()
+    {
+        if ( isGrounded)
+         { 
+            animatorManager.animator.SetBool("isJumping", true);
+            animatorManager.PlayTargetAnimation("Jump", false);
+
+            float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
+            Vector3 playerVelocity = moveDirection;
+            playerVelocity.y = jumpingVelocity;
+            playerRigidbody.linearVelocity = playerVelocity;
+        }
+       
     }
 }

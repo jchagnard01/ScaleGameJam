@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using System.Reflection;
 public class AnimatorManager : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
     int horizontal;
     int vertical;
 

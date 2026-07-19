@@ -463,6 +463,7 @@ MonoBehaviour:
   verticalInput: 0
   horizontalInput: 0
   sprint_input: 0
+  jump_input: 0
 --- !u!136 &1024769966
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -526,18 +527,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLocomotion
   inAirTimer: 0
-  leapingVelocity: 3
-  fallingVelocity: 33
+  leapingVelocity: 0.25
+  fallingVelocity: 330
   rayCastHeightOffset: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
   isSprinting: 0
   isGrounded: 1
+  isJumping: 0
   walkSpeed: 1.5
   movementSpeed: 4
   sprintSpeed: 10
   rotationSpeed: 12
+  jumpHeight: 4
+  gravityIntensity: -100
 --- !u!114 &1024769969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,6 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8a5ffcfdf26734b8f78f06f42ea949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatorManager
+  animator: {fileID: 0}
 --- !u!1 &1578568338
 GameObject:
   m_ObjectHideFlags: 0
