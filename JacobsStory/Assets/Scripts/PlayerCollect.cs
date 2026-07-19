@@ -68,7 +68,7 @@ public class PlayerCollect : MonoBehaviour
 
     void Finish()
     {
-      SceneManager.LoadScene("MainFinish");
+      SceneManager.LoadScene("EndGameWin");
         
     }
 }
