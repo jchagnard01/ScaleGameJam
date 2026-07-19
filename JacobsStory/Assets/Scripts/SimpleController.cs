@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -46,6 +47,8 @@ public class SimpleController : MonoBehaviour
 
     private void Start()
     {
+        UnityEngine.Debug.Log("Player is invincible: " + invincible);
+
         UnityEngine.Debug.Log("Amount of jumps = " + jumpsRemaining);
 
         if (HealthBar != null)
@@ -59,6 +62,10 @@ public class SimpleController : MonoBehaviour
     void Update()
     {
         SetHealthBarValue(health / 100);
+        if (health == 0)
+        {
+            SceneManager.LoadScene("EndGameLose");
+        }
         timer += Time.deltaTime;
         if (Cursor.visible)
         {
@@ -171,10 +178,9 @@ public class SimpleController : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
 
     {
-        
         if (other.gameObject.CompareTag("Enemy"))
         {
             UnityEngine.Debug.Log("Collided with Enemy");
@@ -184,7 +190,7 @@ public class SimpleController : MonoBehaviour
                 UnityEngine.Debug.Log("Damage taken");
                 health -= 5.0f;
                 if (health < 0) health = 0;
-                IFrames(5);
+                StartCoroutine(IFrames(1));
             }
 
         }
