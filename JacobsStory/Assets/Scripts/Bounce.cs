@@ -6,6 +6,7 @@ public class JumpPad : MonoBehaviour
 {
     [Range(20, 1000)]
     public float bounceHeight;
+    private Vector3 force;
 
     GameObject player;
 
@@ -26,6 +27,9 @@ public class JumpPad : MonoBehaviour
     {
         Debug.Log("Collided");
         Rigidbody rb = player.GetComponent<Rigidbody>();
+       // CharacterController cc = player.GetComponent<CharacterController>();
+       // force = Vector3.up * bounceHeight;
         rb.AddForce(Vector3.up * bounceHeight);
+       // cc.Move(force);
     }
 }
