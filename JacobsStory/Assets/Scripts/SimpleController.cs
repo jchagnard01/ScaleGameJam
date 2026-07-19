@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 
 //simple controller to get you started
@@ -18,6 +19,11 @@ public class SimpleController : MonoBehaviour
     public AudioSource jump1;
 
     public AudioSource jump2;
+
+    public GameObject HealthBar;
+    private static Image HealthBarImage;
+    private float health = 100.0f;
+    AudioSource myAudio;
 
 
     private Vector3 playerVelocity;
@@ -33,17 +39,26 @@ public class SimpleController : MonoBehaviour
     [SerializeField]
     private float delay = 1.0f;
     private float timer;
+
+    bool invincible = false;
     
 
 
     private void Start()
     {
         UnityEngine.Debug.Log("Amount of jumps = " + jumpsRemaining);
-        
+
+        if (HealthBar != null)
+        {
+            HealthBarImage = HealthBar.transform.GetComponent<Image>();
+        }
+        SetHealthBarValue(health);
+
     }
 
     void Update()
     {
+        SetHealthBarValue(health / 100);
         timer += Time.deltaTime;
         if (Cursor.visible)
         {
@@ -125,5 +140,89 @@ public class SimpleController : MonoBehaviour
         
     }
 
-    
+    public static void SetHealthBarValue(float value)
+    {
+        HealthBarImage.fillAmount = value;
+        if (HealthBarImage.fillAmount < 0.2f)
+        {
+            SetHealthBarColor(Color.red);
+        }
+        else if (HealthBarImage.fillAmount < 0.6f)
+        {
+            SetHealthBarColor(Color.yellow);
+        }
+        else
+        {
+            SetHealthBarColor(Color.green);
+        }
+    }
+
+    public static void SetHealthBarColor(Color healthColor
+)
+
+    {
+        HealthBarImage.color = healthColor;
+
+    }
+    public static float GetHealthBarValue()
+
+    {
+        return HealthBarImage.fillAmount;
+
+    }
+
+    void OnTriggerEnter(Collider other)
+
+    {
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            UnityEngine.Debug.Log("Collided with Enemy");
+            UnityEngine.Debug.Log("Player is invincible: " + invincible);
+            if (invincible == false)
+            {
+                UnityEngine.Debug.Log("Damage taken");
+                health -= 5.0f;
+                if (health < 0) health = 0;
+                IFrames(5);
+            }
+
+        }
+        /*
+        if (other.gameObject.CompareTag("Collectable"))
+        {
+           // health += other.GetComponent<coinScript>().score;
+        }
+        if (other.gameObject.CompareTag("Junk Food"))
+        {
+            if (invincible == false)
+            {
+                health -= 10;
+            }
+        }
+        
+        if (other.gameObject.CompareTag("Mega Fruit"))
+        {
+            health += 50;
+            //   invincible = true;
+            //   Debug.Log("Player is invincible!");
+        }
+        */
+    }
+
+    private IEnumerator IFrames(float waitTime)
+    {
+        invincible = true;
+        UnityEngine.Debug.Log("Player is invincible from taking damage");
+        yield return new WaitForSeconds(waitTime);
+        invincible = false;
+        UnityEngine.Debug.Log("Player can take damage");
+    }
+
+    public void updateHealth(int num)
+    {
+        health += num;
+    }
+
+
 }
