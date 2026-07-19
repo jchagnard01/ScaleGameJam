@@ -14,6 +14,6 @@ public class TransitionScene : MonoBehaviour
         await FadeToBlack.Instance.FadeIn();
         await Task.Delay(5000);
         await FadeToBlack.Instance.FadeOut();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("BackyardLevel 1");
     }
 }
