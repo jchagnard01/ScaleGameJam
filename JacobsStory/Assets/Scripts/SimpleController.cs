@@ -61,11 +61,7 @@ public class SimpleController : MonoBehaviour
 
     void Update()
     {
-        SetHealthBarValue(health / 100);
-        if (health == 0)
-        {
-            SceneManager.LoadScene("EndGameLose");
-        }
+    
         timer += Time.deltaTime;
         if (Cursor.visible)
         {
@@ -143,8 +139,14 @@ public class SimpleController : MonoBehaviour
             playerSpeed = 10f;
         }
 
+        SetHealthBarValue(health / 100);
+        if (health == 0)
+        {
+            SceneManager.LoadScene("EndGameLose");
+        }
 
-        
+
+
     }
 
     public static void SetHealthBarValue(float value)
