@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: characterSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: cbe8f0d8d671f884f895cf0c451b69c5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5488a53591e5f794b89d03ddaa4b2929, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -265,6 +269,11 @@ MonoBehaviour:
   jump2: {fileID: 0}
   verticalOffset: 1
   delay: 1
+--- !u!4 &915218788 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cbe8f0d8d671f884f895cf0c451b69c5, type: 3}
+  m_PrefabInstance: {fileID: 915218782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &941268890
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +474,7 @@ Transform:
   m_GameObject: {fileID: 992221315}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2841832, y: -0.010776578, z: 0.0031944392, w: 0.9587041}
-  m_LocalPosition: {x: 1.76418, y: 6.234845, z: -8.23582}
+  m_LocalPosition: {x: 2.07, y: 6.924845, z: -9.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,7 +712,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 915218788}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -735,7 +744,7 @@ Transform:
   m_GameObject: {fileID: 1903862839}
   serializedVersion: 2
   m_LocalRotation: {x: 0.28418317, y: -0.0107765775, z: 0.0031944395, w: 0.9587042}
-  m_LocalPosition: {x: 1.76418, y: 6.234845, z: -8.23582}
+  m_LocalPosition: {x: 2.07, y: 6.924845, z: -9.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
